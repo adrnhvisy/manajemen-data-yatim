@@ -38,6 +38,8 @@ Sistem harus mendukung satu dokumen untuk setiap jenis berikut: surat permohonan
 ### Pencarian dan laporan
 
 - Pengguna berwenang dapat menyaring berdasarkan status, wilayah, tanggal, dan status anak.
+- Pencarian teks memakai debounce 300 ms dan hanya berjalan setelah minimal 2 karakter.
+- Hasil request lama tidak boleh menimpa hasil request pencarian yang lebih baru.
 - NIK tidak ditampilkan penuh pada daftar umum.
 - Sistem menyediakan ringkasan jumlah draft, menunggu kecamatan, menunggu Kesra, disetujui, dan ditolak.
 - Export data harus mengikuti hak akses dan kebijakan perlindungan data.
@@ -67,3 +69,4 @@ Sistem harus mendukung satu dokumen untuk setiap jenis berikut: surat permohonan
 4. Pengiriman ulang membuat riwayat versi/status, bukan menghapus riwayat lama.
 5. Kesra tidak dapat menyetujui pengajuan yang belum lolos kecamatan.
 6. Penolakan Kesra selalu menyimpan alasan, pengguna, dan waktu.
+7. Pencarian tidak mengirim request untuk setiap ketikan, menampilkan keadaan kosong untuk query kurang dari 2 karakter, dan menampilkan hasil terbaru saat beberapa request selesai tidak berurutan.
