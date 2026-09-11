@@ -6,6 +6,18 @@ Semua halaman memakai layout yang sama: header berisi nama aplikasi dan akun akt
 
 Daftar data memakai tabel dengan kolom yang dapat dipindai, filter di bagian atas, pagination, dan keadaan loading/kosong/error. NIK dan nomor rekening selalu dimasking. Tombol final seperti meneruskan, menyetujui, menolak, dan mencetak meminta konfirmasi bila tindakan tersebut menghasilkan keputusan atau dokumen resmi.
 
+Menu yang disembunyikan bukan kontrol keamanan. Setiap halaman, route, request, dan service tetap memverifikasi role, unit kerja, kepemilikan wilayah, dan status proses di server.
+
+## 1.1 Matriks akses dan verifikasi
+
+| Peran | Boleh | Tidak boleh | Verifikasi wajib |
+| --- | --- | --- | --- |
+| Kelurahan | Dashboard kelurahan, CRUD draft/data yang dikembalikan, laporan kelurahannya | Membuka dashboard atau data kerja kecamatan/Kesra, memeriksa, meneruskan ke Kesra, menyetujui, atau menolak | Role `kelurahan`, `office_id` kelurahan, dan status `draft`/`dikembalikan_ke_kelurahan` saat mengubah data |
+| Kecamatan | Dashboard kecamatan, melihat dan memeriksa data kelurahan dalam kecamatannya, laporan per kelurahan | CRUD data Kelurahan, membuka fitur Kesra, menyetujui/menolak final, memproses data di kecamatan lain | Role `kecamatan`, relasi parent wilayah, status `diajukan_ke_kecamatan`, dan catatan saat mengembalikan |
+| Kesra | Dashboard Kesra, melihat data yang lolos kecamatan, verifikasi final, laporan lintas wilayah sesuai kewenangan | CRUD data Kelurahan, pemeriksaan Kecamatan, mengubah data anak langsung, memproses data yang belum lolos kecamatan | Role `kesra`, cakupan kewenangan, status `diajukan_ke_kesra`, dan alasan saat menolak |
+
+Jika verifikasi gagal, server mengembalikan `403 Forbidden` untuk akses role/wilayah dan `409 Conflict` untuk status proses yang tidak sesuai. Akses yang ditolak dicatat tanpa menulis data sensitif ke log.
+
 ## 2. Operator Kelurahan
 
 ### Dashboard Kelurahan

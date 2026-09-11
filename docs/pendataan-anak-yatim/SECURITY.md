@@ -11,6 +11,12 @@ NIK anak/orang tua/wali, nomor KK, nomor rekening, alamat, tanggal lahir, kondis
 - Kelurahan hanya dapat mengakses data yang dibuat/ditugaskan ke kelurahannya.
 - Kecamatan hanya dapat mengakses kelurahan di bawah kecamatannya.
 - Kesra dapat mengakses data yang sudah lolos kecamatan sesuai cakupan kewenangan.
+- Role tidak boleh berpindah melalui parameter URL, request body, hidden input, atau manipulasi menu.
+- Route dikelompokkan dengan middleware role; Policy tetap memeriksa record dan wilayah pada setiap operasi.
+- Kelurahan tidak boleh memanggil route dashboard, pemeriksaan, laporan, atau keputusan milik Kecamatan/Kesra.
+- Kecamatan tidak boleh memanggil route CRUD Kelurahan atau keputusan final Kesra.
+- Kesra tidak boleh memanggil route CRUD Kelurahan atau pemeriksaan Kecamatan.
+- Semua perubahan status diverifikasi ulang oleh service berdasarkan status saat ini dan role aktor di dalam transaksi.
 - Admin tidak otomatis boleh melihat seluruh dokumen tanpa kebutuhan dan audit.
 - Endpoint dokumen tidak boleh berupa URL publik yang dapat ditebak.
 
@@ -38,6 +44,8 @@ NIK anak/orang tua/wali, nomor KK, nomor rekening, alamat, tanggal lahir, kondis
 - Terapkan HTTPS di deployment.
 - Gunakan query builder/Eloquent parameterized; jangan merangkai SQL dari input.
 - Validasi status dengan state transition service untuk mencegah bypass melalui request manual.
+- Tolak akses lintas role/wilayah sebelum query detail dan sebelum menghasilkan file laporan.
+- Laporan dan cetak menjalankan policy yang sama dengan halaman daftar; endpoint export tidak boleh menjadi jalur bypass.
 - Audit login penting, akses dokumen, perubahan data, pengembalian, persetujuan, dan penolakan.
 
 ## 6. Respons insiden

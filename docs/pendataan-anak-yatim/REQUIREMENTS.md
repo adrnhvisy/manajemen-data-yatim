@@ -7,6 +7,8 @@
 - Sistem harus menyediakan login dan logout.
 - Sistem harus mengikat pengguna ke peran: `kelurahan`, `kecamatan`, `kesra`, atau `admin`.
 - Sistem harus membatasi daftar data berdasarkan wilayah dan peran.
+- Sistem harus menolak akses dan aksi lintas peran meskipun route dipanggil langsung melalui URL atau request manual.
+- Sistem harus memverifikasi role, unit kerja, wilayah, dan status proses di server untuk setiap operasi.
 - Sistem harus mencatat pengguna, waktu, dan tindakan penting.
 
 ### Pengajuan data
@@ -23,11 +25,14 @@
 
 ### Pemeriksaan berjenjang
 
+- Kelurahan hanya dapat mengelola data wilayahnya dan tidak dapat melakukan pemeriksaan Kecamatan atau verifikasi Kesra.
 - Kecamatan dapat melihat pengajuan berstatus `diajukan_ke_kecamatan` dari wilayahnya.
+- Kecamatan tidak dapat menggunakan CRUD Kelurahan atau keputusan final Kesra.
 - Kecamatan dapat menyetujui pemeriksaan dan meneruskan ke Kesra.
 - Kecamatan dapat mengembalikan pengajuan ke kelurahan dengan catatan wajib.
 - Kelurahan dapat memperbaiki pengajuan yang dikembalikan dan mengirim ulang.
 - Kesra hanya dapat menerima pengajuan yang sudah lolos kecamatan.
+- Kesra tidak dapat menggunakan CRUD Kelurahan atau pemeriksaan Kecamatan.
 - Kesra dapat menyetujui atau menolak dengan catatan keputusan wajib.
 - Data yang ditolak tidak boleh kembali ke alur aktif tanpa membuat proses revisi yang tercatat.
 

@@ -8,6 +8,18 @@
 | Cek | Kecamatan | Memeriksa kelengkapan, kesesuaian administrasi, dan kewajaran data | Dikembalikan atau lolos kecamatan |
 | Verifikasi | Kesra | Memverifikasi pengajuan yang sudah lolos kecamatan | Disetujui atau ditolak |
 
+## 1.1 Verification gate per peran
+
+Setiap gate diverifikasi di server sebelum halaman, data, atau aksi ditampilkan/dijalankan. Hak akses bersifat menutup, bukan meneruskan hak peran sebelumnya.
+
+| Gate | Pemeriksaan | Jika gagal |
+| --- | --- | --- |
+| Kelurahan | User ber-role `kelurahan`, record milik wilayahnya, dan status masih `draft` atau `dikembalikan_ke_kelurahan` untuk edit | Tolak akses; Kelurahan tidak dapat menjalankan pemeriksaan Kecamatan/Kesra |
+| Kecamatan | User ber-role `kecamatan`, wilayah record berada di bawah kecamatannya, dan status `diajukan_ke_kecamatan` | Tolak akses; Kecamatan tidak dapat mengubah data Kelurahan atau mengambil keputusan Kesra |
+| Kesra | User ber-role `kesra`, record berada dalam cakupan kewenangan, dan status `diajukan_ke_kesra` | Tolak akses; Kesra tidak dapat menjalankan CRUD Kelurahan atau pemeriksaan Kecamatan |
+
+Pemeriksaan ini wajib berlaku untuk route dashboard, detail, CRUD, review, laporan, export, dan cetak. Pemanggilan URL atau request manual tidak boleh melewati gate.
+
 ## 2. Alur normal
 
 1. Kelurahan membuat `draft`.
