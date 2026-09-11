@@ -1,0 +1,4 @@
+<div>
+    <!-- Do what you can, with what you have, where you are. - Theodore Roosevelt -->
+</div>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><title>{{ $title ?? 'Laporan' }}</title><style>body{font-family:Arial,sans-serif;color:#17221c}h1{margin-bottom:4px}.meta{color:#66736a;border-bottom:1px solid #ddd;padding-bottom:16px}table{width:100%;border-collapse:collapse;margin-top:24px}th,td{border:1px solid #ddd;padding:10px;text-align:left}@media print{.no-print{display:none}}</style></head><body><button class="no-print" onclick="window.print()">Cetak</button><h1>{{ $title ?? 'Laporan' }}</h1><p class="meta">{{ $scope ?? 'Wilayah kerja' }} · {{ now()->format('d F Y') }}</p><table><thead><tr><th>Nama anak</th><th>Umur</th><th>Status</th><th>Wilayah</th></tr></thead><tbody><tr><td colspan="4">Belum ada data untuk ditampilkan.</td></tr></tbody></table></body></html>

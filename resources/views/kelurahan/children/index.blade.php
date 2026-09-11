@@ -1,0 +1,4 @@
+<div>
+    <!-- It is never too late to be what you might have been. - George Eliot -->
+@extends('layouts.app', ['heading' => 'Data Anak', 'role' => 'Operator Kelurahan'])
+@section('content')<div class="flex flex-wrap items-end justify-between gap-4"><div><p class="text-sm text-[#6f776e]">Kelurahan Pangkalan Kerinci</p><h2 class="display mt-1 text-3xl font-bold">Daftar data anak</h2></div><a href="{{ route('kelurahan.anak.create') }}" class="rounded-full bg-[#315c45] px-5 py-3 font-semibold text-white">+ Data baru</a></div><div class="mt-8 overflow-hidden rounded-3xl bg-white"><table class="w-full text-left text-sm"><thead class="border-b border-black/5 text-[#778078]"><tr><th class="p-5">Nama anak</th><th class="p-5">Nomor pengajuan</th><th class="p-5">Status</th><th class="p-5"></th></tr></thead><tbody><tr><td colspan="4" class="p-8 text-center text-[#778078]">Belum ada data anak.</td></tr></tbody></table></div>@endsection
