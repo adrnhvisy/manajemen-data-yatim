@@ -14,6 +14,8 @@ Folder ini adalah entry point spesifikasi awal aplikasi pendataan anak yatim unt
 | [REQUIREMENTS.md](REQUIREMENTS.md) | Kebutuhan fungsional, nonfungsional, validasi, dan acceptance criteria |
 | [DATABASE.md](DATABASE.md) | Entitas, field, status, relasi, dan migrasi |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Struktur modul dan pola aplikasi Laravel |
+| [MODULE-STRUCTURE.md](MODULE-STRUCTURE.md) | Pembagian Controller, Request, Policy, Service, Resource, Model, dan View |
+| [ROUTES.md](ROUTES.md) | Kelompok route, middleware, prefix, nama route, dan peta akses |
 | [SECURITY.md](SECURITY.md) | Perlindungan data, akses, upload, dan risiko kebijakan |
 | [WORKFLOW.md](WORKFLOW.md) | Alur status dan aturan keputusan |
 | [USER-STORIES.md](USER-STORIES.md) | Kebutuhan berdasarkan peran pengguna |

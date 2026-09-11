@@ -9,19 +9,91 @@
 
 ## 0.1 Relasi inti
 
-```text
-offices 1---n users
-offices 1---n child_records
-users 1---n child_records (created_by)
-child_records 1---n parents
-child_records 1---0..1 guardians
-child_records 1---n documents
-child_records 1---n reviews
-child_records 1---n status_histories
-users 1---n reviews/status_histories/audit_logs
+```mermaid
+erDiagram
+	OFFICES ||--o{ USERS : assigns
+	OFFICES ||--o{ CHILD_RECORDS : owns
+	OFFICES ||--o{ OFFICES : contains
+	USERS ||--o{ CHILD_RECORDS : creates
+	CHILD_RECORDS ||--o{ PARENTS : has
+	CHILD_RECORDS ||--o| GUARDIANS : has
+	CHILD_RECORDS ||--o{ DOCUMENTS : stores
+	CHILD_RECORDS ||--o{ REVIEWS : receives
+	CHILD_RECORDS ||--o{ STATUS_HISTORIES : tracks
+	USERS ||--o{ REVIEWS : performs
+	USERS ||--o{ STATUS_HISTORIES : changes
+	USERS ||--o{ AUDIT_LOGS : creates
+
+	OFFICES {
+		string id PK
+		string parent_id FK
+		string type
+		string code UK
+	}
+	USERS {
+		string id PK
+		string office_id FK
+		string role
+	}
+	CHILD_RECORDS {
+		string id PK
+		string office_id FK
+		string created_by FK
+		date birth_date
+		string current_status
+	}
+	PARENTS {
+		string id PK
+		string child_record_id FK
+		string type
+	}
+	GUARDIANS {
+		string id PK
+		string child_record_id FK UK
+	}
+	DOCUMENTS {
+		string id PK
+		string child_record_id FK
+		string uploaded_by FK
+	}
+	REVIEWS {
+		string id PK
+		string child_record_id FK
+		string reviewer_id FK
+	}
+	STATUS_HISTORIES {
+		string id PK
+		string child_record_id FK
+		string actor_id FK
+	}
+	AUDIT_LOGS {
+		string id PK
+		string actor_id FK
+		string auditable_id
+	}
 ```
 
 Satu `child_record` adalah pengajuan untuk satu anak. Orang tua, wali, dokumen, pemeriksaan, dan riwayat status tidak boleh dibuat sebagai kolom berulang di tabel anak.
+
+## 0.2 Kamus foreign key
+
+| Tabel | Kolom FK | Referensi | Kardinalitas | Aturan penghapusan |
+| --- | --- | --- | --- | --- |
+| `offices` | `parent_id` | `offices.id` | satu parent memiliki banyak child office | `restrict` untuk office yang sudah dipakai |
+| `users` | `office_id` | `offices.id` | satu office memiliki banyak user | `set null` hanya saat akun dipindah/nonaktif |
+| `child_records` | `office_id` | `offices.id` | satu office memiliki banyak pengajuan | `restrict` |
+| `child_records` | `created_by` | `users.id` | satu user membuat banyak pengajuan | `restrict` atau `set null` sesuai kebijakan audit |
+| `parents` | `child_record_id` | `child_records.id` | satu pengajuan memiliki ayah/ibu | hapus bersama hanya untuk draft |
+| `guardians` | `child_record_id` | `child_records.id` | satu pengajuan memiliki nol/satu wali | hapus bersama hanya untuk draft |
+| `documents` | `child_record_id` | `child_records.id` | satu pengajuan memiliki banyak dokumen | pertahankan metadata historis |
+| `documents` | `uploaded_by` | `users.id` | satu user mengunggah banyak dokumen | `restrict` |
+| `reviews` | `child_record_id` | `child_records.id` | satu pengajuan memiliki banyak review | pertahankan untuk audit |
+| `reviews` | `reviewer_id` | `users.id` | satu user melakukan banyak review | `restrict` |
+| `status_histories` | `child_record_id` | `child_records.id` | satu pengajuan memiliki banyak riwayat | pertahankan untuk audit |
+| `status_histories` | `actor_id` | `users.id` | satu user menghasilkan banyak perubahan | `restrict` |
+| `audit_logs` | `actor_id` | `users.id` | satu user memiliki banyak log | nullable bila aksi sistem |
+
+`audit_logs.auditable_type + auditable_id` adalah relasi polymorphic dan tidak memakai foreign key database biasa. Semua relasi Eloquent harus memakai nama yang sama dengan kamus ini agar query, Policy, Resource, dan eager loading konsisten.
 
 ## 1. Prinsip
 
