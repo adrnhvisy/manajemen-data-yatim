@@ -43,7 +43,9 @@ Struktur `parent_id` mengikat kelurahan ke kecamatan dan kecamatan ke wilayah ka
 
 ### `child_records`
 
-`id` (PK), `submission_number` (unique), `full_name`, `nik_encrypted`, `nik_hash`, `bank_account_encrypted`, `birth_place`, `birth_date`, `family_card_number_encrypted`, `gender`, `child_status`, `admin_notes`, `address`, `rt`, `rw`, `office_id` (FK), `created_by` (FK), `current_status`, timestamps, `deleted_at`.
+`id` (PK), `submission_number` (unique), `full_name`, `nik_encrypted`, `nik_hash`, `bank_account_encrypted`, `birth_place`, `birth_date`, `gender`, `child_status`, `family_card_number_encrypted`, `admin_notes`, `address`, `rt`, `rw`, `office_id` (FK), `created_by` (FK), `current_status`, timestamps, `deleted_at`.
+
+Umur tidak disimpan sebagai kolom karena harus dihitung dari `birth_date` terhadap tanggal acuan laporan atau keputusan. Query laporan memakai batas tanggal lahir yang ekuivalen dengan umur `<= 18` pada tanggal acuan.
 
 `nik_hash` digunakan untuk pencarian duplikasi tanpa membuka nilai NIK. `office_id` adalah kelurahan pemilik data.
 

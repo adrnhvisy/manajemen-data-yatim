@@ -18,6 +18,7 @@ Folder ini adalah entry point spesifikasi awal aplikasi pendataan anak yatim unt
 | [WORKFLOW.md](WORKFLOW.md) | Alur status dan aturan keputusan |
 | [USER-STORIES.md](USER-STORIES.md) | Kebutuhan berdasarkan peran pengguna |
 | [DESIGN-SYSTEM.md](DESIGN-SYSTEM.md) | Arah UI, komponen, warna, dan aksesibilitas |
+| [UI-BY-ROLE.md](UI-BY-ROLE.md) | Rancangan dashboard, data, laporan, cetak, dan aturan umur per peran |
 | [FRONTEND-SETUP.md](FRONTEND-SETUP.md) | Keputusan Tailwind CDN, animasi, dan batasan tanpa Breeze/node_modules |
 | [ROADMAP.md](ROADMAP.md) | Tahapan pekerjaan dan Definition of Done |
 | [CLAUDE.md](CLAUDE.md) | Instruksi khusus Claude Code |

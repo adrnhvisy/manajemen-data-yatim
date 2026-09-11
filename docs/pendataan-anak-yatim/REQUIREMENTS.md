@@ -38,8 +38,17 @@ Sistem harus mendukung satu dokumen untuk setiap jenis berikut: surat permohonan
 ### Pencarian dan laporan
 
 - Pengguna berwenang dapat menyaring berdasarkan status, wilayah, tanggal, dan status anak.
+- Kelurahan dapat membuat, melihat, mengubah, dan menghapus draft data anak dari wilayahnya.
+- Kelurahan dapat melihat dan mencetak laporan untuk wilayah kelurahannya sendiri.
+- Kecamatan dapat melihat data dari kelurahan di kecamatannya, memeriksa, mengembalikan, atau meneruskan data ke Kesra.
+- Kecamatan dapat melihat dan mencetak rekap per kelurahan dalam kecamatannya.
+- Kesra hanya dapat memverifikasi data yang sudah lolos pemeriksaan kecamatan.
+- Kesra dapat mencetak rekap per kelurahan, per kecamatan, atau seluruh wilayah sesuai kewenangan.
 - Pencarian teks memakai debounce 300 ms dan hanya berjalan setelah minimal 2 karakter.
 - Hasil request lama tidak boleh menimpa hasil request pencarian yang lebih baru.
+- Umur dihitung otomatis dari tanggal lahir terhadap tanggal acuan laporan atau keputusan.
+- Filter umur menyediakan pilihan `Semua umur` dan `Usia 18 tahun ke bawah`.
+- Cetak laporan resmi dan persetujuan hanya boleh memasukkan anak dengan umur maksimal 18 tahun pada tanggal acuan.
 - NIK tidak ditampilkan penuh pada daftar umum.
 - Sistem menyediakan ringkasan jumlah draft, menunggu kecamatan, menunggu Kesra, disetujui, dan ditolak.
 - Export data harus mengikuti hak akses dan kebijakan perlindungan data.
@@ -70,3 +79,6 @@ Sistem harus mendukung satu dokumen untuk setiap jenis berikut: surat permohonan
 5. Kesra tidak dapat menyetujui pengajuan yang belum lolos kecamatan.
 6. Penolakan Kesra selalu menyimpan alasan, pengguna, dan waktu.
 7. Pencarian tidak mengirim request untuk setiap ketikan, menampilkan keadaan kosong untuk query kurang dari 2 karakter, dan menampilkan hasil terbaru saat beberapa request selesai tidak berurutan.
+8. Perhitungan umur berubah benar ketika tanggal acuan melewati ulang tahun anak.
+9. Rekap dapat berganti antara semua umur dan usia 18 tahun ke bawah tanpa mencampur hasil filter.
+10. Cetak dan persetujuan menolak data yang berumur lebih dari 18 tahun pada tanggal acuan.
